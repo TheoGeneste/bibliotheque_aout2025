@@ -1,11 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
-// Load environment variables from .env file
+import typesRoutes from './routes/typesRoutes.js';
+import usersRoutes from './routes/usersRoutes.js';
+// Charge les variables d'environnement depuis le fichier .env
 dotenv.config();
 
-// Create an Express application
+// Crée une instance d'Express
 const app = express();
 
 // Middleware setup
@@ -15,6 +16,10 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.json({message : "Bienvenue dans l'API de la bibliothèque !"});
 });
+
+// Import des routes
+app.use('/api/types', typesRoutes);
+app.use('/api/users', usersRoutes);
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`L'API est lancé sur http://localhost:${process.env.SERVER_PORT}`);  
