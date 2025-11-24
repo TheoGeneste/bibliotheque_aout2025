@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import typesRoutes from './routes/typesRoutes.js';
+import usersRoutes from './routes/usersRoutes.js';
 // Charge les variables d'environnement depuis le fichier .env
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 // Import des routes
 app.use('/api/types', typesRoutes);
+app.use('/api/users', usersRoutes);
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`L'API est lancé sur http://localhost:${process.env.SERVER_PORT}`);  
