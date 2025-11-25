@@ -26,7 +26,7 @@ const NavBar = () => {
                     <Nav className="d-flex justify-content-end gap-2">
                         {isConnected ?
                             <>
-                                <IconButton sx={{ color: "white" }} size='large'><AccountCircleIcon /> </IconButton>
+                                <IconButton sx={{ color: "white" }} size='large' onClick={() => {navigate('/profile')}}><AccountCircleIcon /> </IconButton>
                                 <IconButton color='error' size='large' onClick={() => {setIsConnected(false); localStorage.removeItem("token")}}><LogoutIcon /> </IconButton>
                             </>
                             : <>
