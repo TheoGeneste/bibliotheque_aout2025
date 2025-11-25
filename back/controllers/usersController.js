@@ -112,11 +112,22 @@ const login = async (req,res) => {
     }
 }
 
+const getMe = async (req , res) => {
+    try {
+        const user = await usersModel.getUserByLogin(req.userLogin)
+        const loaner = await loanersModel.getLoanerByUser(req.userId)
+        res.json({user,loaner})
+    } catch (error) {
+        res.status(500).json({message :'Erreur lors de la récupération de moi même'})
+    }
+}
+
 export default {
     getAllUsers,
     getUserByLogin,
     createUser,
     updateUser,
     deleteUser,
-    login
+    login,
+    getMe
 }
