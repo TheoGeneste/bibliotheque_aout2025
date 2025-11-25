@@ -4,3 +4,26 @@ body{
     background-color: black;
     color: white;
 }
+#controlled-tab-example .nav-link{
+    color: darkorange !important;
+}
+
+#controlled-tab-example .active{
+    color: black !important;
+    background-color: darkorange !important;
+    border : none !important;
+}
+
+.tab-content{
+    width: 100% !important;
+}
+
+.darkorange{
+    background-color: darkorange !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.MuiFormControlLabel-root {
+    color: black !important;
+}
