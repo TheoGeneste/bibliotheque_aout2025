@@ -7,6 +7,7 @@ import Register from './Pages/Register';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './Context/AuthContext';
 import NavBar from './Components/NavBar';
+import Profile from './Pages/Profile';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/profile' element={<Profile/>}/>
           </Routes>
           <ToastContainer
             position="bottom-right"

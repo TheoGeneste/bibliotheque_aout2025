@@ -1,4 +1,5 @@
 import usersModel from "../models/usersModel.js";
+import loanersModel from "../models/loanersModel.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -29,7 +30,8 @@ const getUserByLogin = async (req, res ) => {
 
 const createUser = async (req, res) => {
     try {
-        const {login, password} = req.body;
+        const {login, password, firstname, lastname, email, street_number, street_name, 
+            city, postal_code, additional_adress} = req.body;
         if (!login || ! password){
             return res.status(400).json({message: "Login et mot de passe sont requis."})
         }
@@ -40,6 +42,8 @@ const createUser = async (req, res) => {
         const passwordHashed = bcrypt.hashSync(password, 10);
         const userId = await usersModel.createUser(login, passwordHashed);
         if (userId) {
+            const loaner = await loanersModel.createLoaner(lastname, firstname,email,street_number,street_name,city
+                ,postal_code,additional_adress,userId)
             res.status(201).json({id : userId});
         }else{
             res.status(500).json({message: "Erreur lors de la création de l'utilisateur."});
@@ -94,7 +98,7 @@ const login = async (req,res) => {
         if (isPasswordValid){
             const token = jwt.sign({
                     id: user.id,
-                    login: user.login
+                    login: user.login,
                 },process.env.JWT_SECRET,
                 {expiresIn: '1h'}
             );
