@@ -56,11 +56,20 @@ const deleteLoaner = async (id) => {
     return result.affectedRows;
 }
 
+const getLoanerByUser = async (userId) => {
+    const sql = "SELECT lastname, firstname, email, street_number,street_name, city, postal_code, additional_adress FROM loaners WHERE user_id = ?";
+    // Exécution de la requête avec l'ID en paramètre
+    const [result] = await bdd.query(sql, [userId]);
+    // Retourne le nombre de lignes affectées
+    return result[0];
+}
+
 export default {
     fetchAllLoaners,
     fetchLoanerById,
     createLoaner,
     updateLoaner,
-    deleteLoaner
+    deleteLoaner,
+    getLoanerByUser
 }
 
