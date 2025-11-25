@@ -12,7 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const { isConnected, setIsConnected } = useContext(AuthContext);
+    const { isConnected, setIsConnected, setRole, role } = useContext(AuthContext);
 
     return <>
         <Navbar expand="lg" className="bg-body-dark border-bottom border-2 border-white mb-3" variant='dark'>
@@ -22,12 +22,15 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link onClick={() => { navigate('/') }}>Accueil</Nav.Link>
+                        {role === "ADMIN" && <>
+                            <Nav.Link onClick={() => { navigate('/admin') }}>Admin</Nav.Link>
+                        </>}
                     </Nav>
                     <Nav className="d-flex justify-content-end gap-2">
                         {isConnected ?
                             <>
-                                <IconButton sx={{ color: "white" }} size='large' onClick={() => {navigate('/profile')}}><AccountCircleIcon /> </IconButton>
-                                <IconButton color='error' size='large' onClick={() => {setIsConnected(false); localStorage.removeItem("token")}}><LogoutIcon /> </IconButton>
+                                <IconButton sx={{ color: "white" }} size='large' onClick={() => { navigate('/profile') }}><AccountCircleIcon /> </IconButton>
+                                <IconButton color='error' size='large' onClick={() => { setIsConnected(false); localStorage.removeItem("token"); setRole('USER') }}><LogoutIcon /> </IconButton>
                             </>
                             : <>
                                 <Button variant='primary' onClick={() => { navigate('/login') }}>Connexion</Button>

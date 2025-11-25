@@ -1,12 +1,12 @@
 import bdd from "../config/bdd.js";
 
 const getAllUsers = async () => {
-    const [rows] =  await bdd.query("SELECT id, login,password FROM users");
+    const [rows] =  await bdd.query("SELECT id, login,password, role FROM users");
     return rows;
 }
 
 const getUserByLogin = async (login) => {
-    const [rows] =  await bdd.query("SELECT id, login,password FROM users WHERE login = ?", [login]);   
+    const [rows] =  await bdd.query("SELECT id, login,password, role FROM users WHERE login = ?", [login]);   
     return rows[0];
 }
 

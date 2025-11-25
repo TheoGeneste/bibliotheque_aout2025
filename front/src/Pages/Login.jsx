@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -12,7 +14,7 @@ const Login = () => {
         password: ""
     })
     const navigate = useNavigate();
-    const {setIsConnected} = useContext(AuthContext);
+    const {setIsConnected,setRole} = useContext(AuthContext);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -25,7 +27,11 @@ const Login = () => {
         try {
             const response = await usersService.login(user);
             toast.success("Bienvenue, " + user.login);
+            axios.defaults.headers["authorization"] ='Bearer '+ response.data.token;
             setIsConnected(true);
+            console.log(jwtDecode(response.data.token).role);
+            
+            setRole(jwtDecode(response.data.token).role)
             localStorage.setItem('token', response.data.token)
             navigate("/");
         } catch (error) {
